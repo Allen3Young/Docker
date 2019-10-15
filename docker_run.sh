@@ -12,4 +12,4 @@
 
 image_name=torch-gpu:latest
 
-nvidia-docker run --name pytorch -it --rm -v /home/allen/docker/pytorch:/pytorch -p 8888:8888 torch-gpu:latest /bin/bash
+nvidia-docker run --name pytorch -it --rm -v /home/yuxuan/:/container -p 8888:8888 torch-gpu:latest /bin/bash

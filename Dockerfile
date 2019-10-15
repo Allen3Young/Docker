@@ -10,7 +10,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # Essentials: developer tools, build tools, OpenBLAS
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    apt-utils git curl vim unzip openssh-client wget \
+    apt-utils git curl vim unzip openssh-client wget libgtk2.0-dev\
     build-essential cmake \
     libopenblas-dev \
     libcudnn7=$CUDNN_VERSION-1+cuda10.0 \    
