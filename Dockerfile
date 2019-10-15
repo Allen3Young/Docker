@@ -27,7 +27,7 @@ RUN apt-get install -y --no-install-recommends python3.6 python3.6-dev python3-p
 RUN pip3 --no-cache-dir install \
     numpy scipy sklearn scikit-image imgaug opencv-python IPython[all] matplotlib Cython requests PyYAML h5py
 # Install pytorch  
-RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.2.0-cp36-cp36m-manylinux1_x86_64.whl torchvision
+RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl torchvision
 
 RUN apt-get update && apt-get install -y vim python-opengl python3-opengl && \
     apt-get clean && \
