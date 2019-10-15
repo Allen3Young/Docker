@@ -10,6 +10,6 @@
 # also mounted as a volume.
 #
 
-image_name=torch-gpu:latest
+image_name=ynyg/torch-gpu:latest
 
-nvidia-docker run --name pytorch -it --rm -v /home/yuxuan/:/container -p 8888:8888 torch-gpu:latest /bin/bash
+nvidia-docker run --name pytorch -it --rm -v /media/local-data/yuxuan/:/repository -v /home/ynyg/Data/:/repository/Data -p 8888:8888 ynyg/torch-gpu:latest /bin/bash

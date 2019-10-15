@@ -4,4 +4,4 @@
 #
 
 set -exu
-nvidia-docker build --tag torch-gpu ./
+nvidia-docker build --tag ynyg/torch-gpu ./
