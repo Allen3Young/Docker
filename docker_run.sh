@@ -8,8 +8,12 @@
 # source directory as a volume in the docker container.  If the
 # path to a data directory is given then the data directory is
 # also mounted as a volume.
-#
+# 
+# -v mount folder into container
 
 image_name=ynyg/torch-gpu:latest
 
+
 nvidia-docker run --name pytorch -it --rm -v /media/local-data/yuxuan/:/repository -v /home/ynyg/Data/:/repository/Data -p 8888:8888 -p 0.0.0.0:6006:6006 ynyg/torch-gpu:latest /bin/bash
+
+
