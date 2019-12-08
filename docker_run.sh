@@ -14,6 +14,6 @@
 image_name=ynyg/torch-gpu:latest
 
 
-nvidia-docker run --name pytorch -it --rm -v /media/local-data/yuxuan/:/repository -v /home/ynyg/Data/:/repository/Data -p 8888:8888 -p 0.0.0.0:6006:6006 ynyg/torch-gpu:latest /bin/bash
+nvidia-docker run --name pytorch -it --rm -v /media/local-data/yuxuan/:/repository -v /home/ynyg/Data/:/repository/Data -p 8888:8888 -p 6006:6006 ynyg/torch-gpu:latest /bin/bash
 
 
