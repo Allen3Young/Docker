@@ -25,14 +25,21 @@ RUN apt-get install -y --no-install-recommends python3.6 python3.6-dev python3-p
     pip3 install --upgrade pip setuptools
 # Science libraries and other common packages
 RUN pip3 --no-cache-dir install \
-    numpy scipy sklearn scikit-image imgaug opencv-python IPython[all] matplotlib Cython requests PyYAML h5py
-# Install pytorch  
-RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.3.0%2Bcu100-cp36-cp36m-linux_x86_64.whl torchvision tensorboard
+    numpy scipy sklearn scikit-image imgaug opencv-python IPython[all] matplotlib Cython requests PyYAML h5py tqdm Pillow==6.2.1
 
+RUN pip3 install jupyter_contrib_nbextensions && jupyter contrib nbextension install 
+# Install pytorch  
+RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.3.1%2Bcu100-cp36-cp36m-linux_x86_64.whl torchvision==0.4.2 tensorboard 
+
+RUN pip3 install pyquaternion
 RUN apt-get update && apt-get install -y vim python-opengl python3-opengl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 
+# TensorBoard
+EXPOSE 6006
 # IPython
 EXPOSE 8888
+# VNC Server
+EXPOSE 5900
