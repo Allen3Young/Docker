@@ -14,5 +14,5 @@
 image_name=ynyg/torch-gpu:latest
 
 NOTEBOOKS_PATH=/media/local-data/yuxuan/notebooks
-nvidia-docker run --name pytorch_jupyter -it --rm -v $NOTEBOOKS_PATH:/notebooks -v /media/local-data/yuxuan/:/repository -v /home/ynyg/Data/:/repository/Data -e NB_UID=1000 -e NB_GID=1000 -e VNC_SERVER_PASSWORD=password -p 8888:8888 --runtime=nvidia -p 6006:6006 -p 5900:5900 ynyg/torch-gpu:latest
+nvidia-docker run --name pytorch_jupyter -it --rm -v $NOTEBOOKS_PATH:/notebooks -v /home/ynyg:/repository -v /home/ynyg/Data/:/repository/Data -e NB_UID=1000 -e NB_GID=1000 -e VNC_SERVER_PASSWORD=password -p 8888:8888 --runtime=nvidia -p 6006:6006 -p 5900:5900 ynyg/torch-gpu:latest
 
