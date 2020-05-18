@@ -29,9 +29,11 @@ RUN pip3 --no-cache-dir install \
 
 RUN pip3 install jupyter_contrib_nbextensions && jupyter contrib nbextension install 
 # Install pytorch  
-RUN pip3 install https://download.pytorch.org/whl/cu100/torch-1.3.1%2Bcu100-cp36-cp36m-linux_x86_64.whl torchvision==0.4.2 tensorboard 
+RUN pip3 install torch===1.4.0+cu100 torchvision===0.5.0+cu100  -f https://download.pytorch.org/whl/torch_stable.html
 
-RUN pip3 install pyquaternion numba kornia numpy-quaternion pymunk progressbar2
+
+
+RUN pip3 install pyquaternion numba kornia numpy-quaternion pymunk progressbar2 tensorboard
 RUN apt-get update && apt-get install -y vim python-opengl python3-opengl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
