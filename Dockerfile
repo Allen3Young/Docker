@@ -29,7 +29,7 @@ RUN pip3 --no-cache-dir install \
 
 RUN pip3 install jupyter_contrib_nbextensions && jupyter contrib nbextension install 
 # Install pytorch  
-RUN pip3 install kornia==0.2.2 https://download.pytorch.org/whl/cu100/torch-1.4.0%2Bcu100-cp36-cp36m-linux_x86_64.whl torchvision==0.5.0
+RUN pip3 install kornia==0.2.2 https://download.pytorch.org/whl/cu100/torch-1.4.0%2Bcu100-cp36-cp36m-linux_x86_64.whl torchvision==0.5.0 tensorboard
 
 
 
