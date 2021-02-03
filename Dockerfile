@@ -22,18 +22,23 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # For convenience, alias (but don't sym-link) python & pip to python3 & pip3 as recommended in:
 # http://askubuntu.com/questions/351318/changing-symlink-python-to-python3-causes-problems
 RUN apt-get install -y --no-install-recommends python3.6 python3.6-dev python3-pip python3-tk && \
-    pip3 install --upgrade pip setuptools
+    pip3 install --upgrade pip setuptools wheel
 # Science libraries and other common packages
 RUN pip3 --no-cache-dir install \
     numpy scipy sklearn scikit-image imgaug opencv-python IPython[all] matplotlib Cython requests PyYAML h5py tqdm Pillow==6.2.1
 
 RUN pip3 install jupyter_contrib_nbextensions && jupyter contrib nbextension install 
 # Install pytorch  
-RUN pip3 install kornia==0.2.2 https://download.pytorch.org/whl/cu100/torch-1.4.0%2Bcu100-cp36-cp36m-linux_x86_64.whl torchvision==0.5.0 tensorboard
 
+RUN pip3 install kornia==0.2.2 https://download.pytorch.org/whl/cu100/torch-1.4.0%2Bcu100-cp36-cp36m-linux_x86_64.whl torchvision==0.5.0 tensorboard 
+RUN pip3 install --no-index torch-scatter -f https://pytorch-geometric.com/whl/torch-1.4.0+cu100.html && \
+ pip3 install --no-index torch-sparse -f https://pytorch-geometric.com/whl/torch-1.4.0+cu100.html &&\
+ pip3 install --no-index torch-cluster -f https://pytorch-geometric.com/whl/torch-1.4.0+cu100.html &&\
+ pip3 install --no-index torch-spline-conv -f https://pytorch-geometric.com/whl/torch-1.4.0+cu100.html &&\
+pip3 install torch-geometric
 
+RUN pip3 install pyquaternion numba numpy-quaternion pymunk progressbar2
 
-RUN pip3 install pyquaternion numba  numpy-quaternion pymunk progressbar2
 RUN apt-get update && apt-get install -y vim python-opengl python3-opengl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
