@@ -1,6 +1,8 @@
 # Docker
 Here's an example of build a docker image and run a docker environment
 
+In DockerFile, there is everything about what you want to install for your virtual environment.
+
 First run
 ./docker_build.sh
 
