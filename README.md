@@ -22,3 +22,7 @@ You could change
 and
 
 image_name in docker_run.sh
+
+
+inside the docker environment, if you want to use jupyter notebook, use following comand.
+jupyter notebook --ip=0.0.0.0 --allow-root
