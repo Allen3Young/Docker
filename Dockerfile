@@ -41,6 +41,8 @@ RUN pip3 install kornia  torch torchvision torchaudio tensorboard  numba progres
 
 RUN pip3 install git+https://github.com/DLR-RM/stable-baselines3
 
+RUN apt-get install -y libegl1 libopengl0
+
 COPY ./agx-2.31.0.2-amd64-ubuntu_18.04.deb /
 RUN dpkg -i /agx-2.31.0.2-amd64-ubuntu_18.04.deb &&\
     apt-get install -y -f
