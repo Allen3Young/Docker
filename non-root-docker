@@ -1,0 +1,40 @@
+## Docker Installation Guide
+- For docker, see https://docs.docker.com/engine/install/ubuntu/
+- For NVIDIA Container Toolkit, See https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker
+
+## Run the Docker daemon as a non-root user 
+1. Install
+ ```bash
+ curl -fsSL https://get.docker.com/rootless | sh
+ ```
+ You might get suggestions to install some dependencies (e.g. *uidmap*), do it.
+
+According to the [info] you get after the previous command complete, follow the instruction to add the environment variables to `~/.bashrc`.
+Don't forget run `source ~/.bashrc` after adding the environment variables
+
+2. Setting for GPU access in non-root user mode, in file `/etc/nvidia-container-runtime/config.toml`
+
+setting
+```
+no-cgroups = true
+```
+
+3. Restart the Docker daemon (not sure if it is necessary)
+```bash
+sudo systemctl restart docker
+```
+
+4. Test if you have access to gpu in a docker container
+```bash
+docker run --rm --gpus all --privileged nvidia/cuda:11.3.1-base-ubuntu20.04 nvidia-smi
+
+```
+ Uninstall if you want
+ ```bash
+ dockerd-rootless-setuptool.sh uninstall
+ ```
+
+ Reference: 
+
+- Run the Docker daemon as a non-root user (Rootless mode)
+ https://docs.docker.com/engine/security/rootless/
