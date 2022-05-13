@@ -17,6 +17,7 @@ NOTEBOOKS_PATH=/media/local-data/yuxuan/notebooks
 docker run --name pytorch_jupyter_ubuntu20 -it --rm\
     -v /home/ynyg/yuxuan/:/repository \
     --env="DISPLAY" \
+    --ipc=host \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     -e NVIDIA_DRIVER_CAPABILITIES=all \
     -e NVIDIA-VISIBLE_DEVICES=all \
