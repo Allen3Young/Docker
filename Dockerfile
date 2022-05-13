@@ -49,6 +49,8 @@ RUN dpkg -i /agx-2.31.0.2-amd64-ubuntu_18.04.deb &&\
 
 RUN pip3 install pyquaternion numba numpy-quaternion pymunk progressbar2
 
+RUN pip3 install arrow termcolor pytorch-lightning igraph
+
 COPY ./agx.lic /opt/Algoryx/AGX-2.31.0.2/
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*

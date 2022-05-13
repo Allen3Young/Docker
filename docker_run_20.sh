@@ -11,15 +11,19 @@
 # 
 # -v mount folder into container
 
-image_name=ynyg/torch-gpu-ubuntu20:latest
+image_name=ynyg/torch-gpu-ubuntu20
 
 NOTEBOOKS_PATH=/media/local-data/yuxuan/notebooks
-nvidia-docker run --name pytorch_jupyter-ubuntu20 -it --rm -v $NOTEBOOKS_PATH:/notebooks -v /home/ynyg/yuxuan/:/repository \
+docker run --name pytorch_jupyter_ubuntu20 -it --rm\
+    -v /home/ynyg/yuxuan/:/repository \
     --env="DISPLAY" \
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     -e NVIDIA_DRIVER_CAPABILITIES=all \
     -e NVIDIA-VISIBLE_DEVICES=all \
-    -e QT_X11_NO_MITSHM=1 \ 
-    -e NB_UID=1000 -e NB_GID=1000 -e VNC_SERVER_PASSWORD=password -p 8888:8888 --runtime=nvidia \
+    -e QT_X11_NO_MITSHM=1 \
+    -e NB_UID=1000 -e NB_GID=1000 -e VNC_SERVER_PASSWORD=password \
+    -p 8888:8888 --runtime=nvidia \
     --privileged\
-    -p 6006:6006 -p 5900:5900 image_name
+    -p 6006:6006 -p 5900:5900 \
+    $image_name
 
