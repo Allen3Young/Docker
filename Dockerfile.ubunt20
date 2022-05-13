@@ -1,0 +1,63 @@
+ARG CUDA="11.3.1"
+ARG UBUNTU="20.04"
+ARG ARCH=""
+
+FROM nvidia/cuda${ARCH}:${CUDA}-devel-ubuntu${UBUNTU}
+LABEL maintainer="AMM Lab"
+
+ENV CUDNN_VERSION 8.2.1.32
+LABEL com.nvidia.cudnn.version="${CUDNN_VERSION}"
+LABEL maintainer="Yuxuan Yang"
+
+
+# Supress warnings about missing front-end. As recommended at:
+# http://stackoverflow.com/questions/22466255/is-it-possibe-to-answer-dialog-questions-when-installing-under-docker
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Essentials: developer tools, build tools, OpenBLAS
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    apt-utils git curl ssh vim unzip openssh-client wget libgtk2.0-dev\
+    build-essential cmake \
+    libopenblas-dev \
+    libcudnn8=$CUDNN_VERSION-1+cuda11.3 \    
+    libcudnn8-dev=$CUDNN_VERSION-1+cuda11.3 && \
+    apt-mark hold libcudnn8
+    
+
+# Python 3.7
+# For convenience, alias (but don't sym-link) python & pip to python3 & pip3 as recommended in:
+# http://askubuntu.com/questions/351318/changing-symlink-python-to-python3-causes-problems
+
+RUN apt-get update && apt-get install -y  python3.8 python3.8-dev python3-pip python3-tk \
+   python-opengl python3-opengl&& \
+   pip3 install --upgrade pip setuptools wheel
+
+# Science libraries and other common packages
+RUN pip3 --no-cache-dir install \
+    numpy scipy sklearn scikit-image imgaug opencv-python IPython[all] matplotlib\
+    Cython requests PyYAML h5py tqdm Pillow==6.2.1 progressbar2 numba\
+    jupyter_contrib_nbextensions \
+    && jupyter contrib nbextension install
+
+RUN pip3 install jupyter_contrib_nbextensions && jupyter contrib nbextension install 
+# Install pytorch  
+RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 kornia tensorboard 
+
+
+#COPY ./agx-2.29.4.0-amd64-ubuntu_18.04.deb /
+#RUN dpkg -i /agx-2.29.4.0-amd64-ubuntu_18.04.deb &&\
+#    apt-get install -y -f
+
+
+
+#COPY ./agx.lic /opt/Algoryx/AgX-2.29.4.0/
+#RUN apt-get clean && \
+#    rm -rf /var/lib/apt/lists/*
+
+
+# TensorBoard
+EXPOSE 6006
+# IPython
+EXPOSE 8888
+# VNC Server
+EXPOSE 5900

@@ -4,4 +4,4 @@
 #
 
 set -exu
-nvidia-docker build --tag ynyg/torch-gpu -f Dockerfile ./
+nvidia-docker build --tag ynyg/torch-gpu-ubuntu20 -f Dockerfile.ubunt20 ./
