@@ -62,3 +62,6 @@ EXPOSE 6006
 EXPOSE 8888
 # VNC Server
 EXPOSE 5900
+
+#ENTRYPOINT ["tail", "-f", "/dev/null"]
+#CMD ["/bin/sh"]
