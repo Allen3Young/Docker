@@ -1,7 +1,7 @@
-FROM nvidia/cuda:11.3.1-devel-ubuntu18.04
+FROM nvidia/cuda:10.0-devel-ubuntu18.04
 LABEL maintainer="Yuxuan Yang"
 
-ENV CUDNN_VERSION 8.2.1.32
+ENV CUDNN_VERSION 7.6.4.38
 LABEL com.nvidia.cudnn.version="${CUDNN_VERSION}"
 
 # Supress warnings about missing front-end. As recommended at:
@@ -13,9 +13,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils git curl vim unzip openssh-client wget libgtk2.0-dev\
     build-essential cmake \
     libopenblas-dev \
-    libcudnn8=$CUDNN_VERSION-1+cuda11.3 \    
-    libcudnn8-dev=$CUDNN_VERSION-1+cuda11.3 && \
-    apt-mark hold libcudnn8
+    libcudnn7=$CUDNN_VERSION-1+cuda10.0 \    
+    libcudnn7-dev=$CUDNN_VERSION-1+cuda10.0 && \
+    apt-mark hold libcudnn7
     
 
 # Python 3.7
@@ -27,31 +27,31 @@ RUN apt-get update && apt-get install -y  python3.6 python3.6-dev python3-pip py
     pip3 install --upgrade pip setuptools wheel
 # Science libraries and other common packages
 RUN pip3 --no-cache-dir install \
-    numpy scipy sklearn scikit-image imgaug opencv-python==4.5.3.56 IPython[all] matplotlib Cython requests PyYAML h5py tqdm Pillow==6.2.1
+    numpy scipy sklearn scikit-image imgaug opencv-python IPython[all] matplotlib Cython requests PyYAML h5py tqdm Pillow==6.2.1
 
 RUN pip3 install jupyter_contrib_nbextensions && jupyter contrib nbextension install 
 # Install pytorch  
-RUN pip3 install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1 -f https://download.pytorch.org/whl/cu113/torch_stable.html
-RUN pip3 install kornia tensorboard  numba progressbar2 torch-geometric numba progressbar2
+
+RUN pip3 install kornia  torch torchvision torchaudio tensorboard  numba progressbar2 torch-geometric numba progressbar2
 #RUN pip3 install --no-index torch-scatter -f https://pytorch-geometric.com/whl/torch-1.4.0+cu100.html && \
 # pip3 install --no-index torch-sparse -f https://pytorch-geometric.com/whl/torch-1.4.0+cu100.html &&\
 # pip3 install --no-index torch-cluster -f https://pytorch-geometric.com/whl/torch-1.4.0+cu100.html &&\
 # pip3 install --no-index torch-spline-conv -f https://pytorch-geometric.com/whl/torch-1.4.0+cu100.html &&\
 #pip3 install torch-geometric numba progressbar2
 
-#RUN pip3 install git+https://github.com/DLR-RM/stable-baselines3
+RUN pip3 install git+https://github.com/DLR-RM/stable-baselines3
 
 RUN apt-get install -y libegl1 libopengl0
 
-#COPY ./agx-2.31.0.2-amd64-ubuntu_18.04.deb /
-#RUN dpkg -i /agx-2.31.0.2-amd64-ubuntu_18.04.deb &&\
-#    apt-get install -y -f
+COPY ./agx-2.31.0.2-amd64-ubuntu_18.04.deb /
+RUN dpkg -i /agx-2.31.0.2-amd64-ubuntu_18.04.deb &&\
+    apt-get install -y -f
 
 RUN pip3 install pyquaternion numba numpy-quaternion pymunk progressbar2
 
 
 
-#COPY ./agx.lic /opt/Algoryx/AGX-2.31.0.2/
+COPY ./agx.lic /opt/Algoryx/AGX-2.31.0.2/
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
